@@ -7,9 +7,11 @@ from app.database import engine, Base, get_db
 # Import database models
 from app.models import User, Project, Task
 
-# NOTE: We're using Alembic for migrations now, so we don't auto-create tables here
+# Import routers
+from app.routers import auth, users, projects, tasks
+
+# NOTE: We're using Alembic for migrations now
 # Run migrations with: alembic upgrade head
-# Base.metadata.create_all(bind=engine)  # <-- Commented out
 
 app = FastAPI(
     title="Project Management API",
@@ -24,6 +26,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include routers
+app.include_router(auth.router)
+app.include_router(users.router)
+app.include_router(projects.router)
+app.include_router(tasks.router)
 
 @app.get("/")
 async def root():

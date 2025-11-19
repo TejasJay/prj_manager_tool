@@ -14,6 +14,13 @@ uvicorn[standard]==0.24.0
 # - [standard] includes extra dependencies for better performance
 # - Handles HTTP requests and responses
 
+python-multipart==0.0.9
+# python-multipart: Form data parsing for FastAPI
+# - Required for handling form data (OAuth2PasswordRequestForm)
+# - Needed for login endpoint that uses form data
+# - Parses multipart/form-data and application/x-www-form-urlencoded
+# - Updated from 0.0.6 to 0.0.9 for better compatibility
+
 # ============================================
 # Database & ORM
 # ============================================
@@ -45,12 +52,18 @@ python-jose[cryptography]==3.3.0
 # - When users log in, we create a token they use for subsequent requests
 # - [cryptography] adds encryption support
 
-passlib[bcrypt]==1.7.4
-# passlib: Password hashing library
+bcrypt==5.0.0
+# bcrypt: Password hashing library
 # - NEVER store passwords in plain text!
 # - Hashes passwords using bcrypt algorithm
 # - When user registers, we hash their password before storing
 # - When they login, we verify the hash matches
+# - We use bcrypt directly instead of passlib for better compatibility
+
+# passlib[bcrypt]==1.7.4
+# passlib: Password hashing library (DEPRECATED - using bcrypt directly)
+# - Commented out due to compatibility issues with bcrypt 5.0.0
+# - We now use bcrypt directly in app/auth.py
 
 # ============================================
 # Configuration & Environment
@@ -69,6 +82,13 @@ pydantic==2.5.0
 # - FastAPI uses this to validate request/response data
 # - Ensures data types are correct (e.g., email is valid, age is a number)
 # - Automatically converts and validates JSON data
+
+email-validator==2.2.0
+# email-validator: Email validation for Pydantic
+# - Required when using EmailStr type in Pydantic schemas
+# - Validates email format (e.g., user@example.com)
+# - Used in UserCreate and UserUpdate schemas
+# - Updated from 2.1.0 (yanked) to 2.2.0
 
 pydantic-settings==2.1.0
 # pydantic-settings: Settings management using Pydantic
