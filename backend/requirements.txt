@@ -1,0 +1,77 @@
+# ============================================
+# Core Web Framework
+# ============================================
+fastapi==0.104.1
+# FastAPI: Modern, fast web framework for building APIs
+# - Automatic API documentation (Swagger/OpenAPI)
+# - Type hints and validation
+# - Async support for better performance
+# - This is our main framework for the backend
+
+uvicorn[standard]==0.24.0
+# Uvicorn: ASGI server to run FastAPI
+# - The server that actually runs our FastAPI application
+# - [standard] includes extra dependencies for better performance
+# - Handles HTTP requests and responses
+
+# ============================================
+# Database & ORM
+# ============================================
+sqlalchemy==2.0.23
+# SQLAlchemy: Python SQL toolkit and Object-Relational Mapping (ORM)
+# - Allows us to interact with PostgreSQL using Python objects
+# - Instead of writing raw SQL, we write Python code
+# - Handles database connections, queries, and relationships
+
+psycopg2-binary==2.9.9
+# psycopg2: PostgreSQL adapter for Python
+# - The actual driver that connects Python to PostgreSQL
+# - Binary version is easier to install (no compilation needed)
+# - SQLAlchemy uses this under the hood to talk to PostgreSQL
+
+alembic==1.12.1
+# Alembic: Database migration tool
+# - Manages changes to your database schema over time
+# - Creates "migrations" (version control for your database)
+# - Allows you to update database structure without losing data
+# - Essential for managing database changes as your app evolves
+
+# ============================================
+# Authentication & Security
+# ============================================
+python-jose[cryptography]==3.3.0
+# python-jose: JWT (JSON Web Token) library
+# - Creates and verifies JWT tokens for user authentication
+# - When users log in, we create a token they use for subsequent requests
+# - [cryptography] adds encryption support
+
+passlib[bcrypt]==1.7.4
+# passlib: Password hashing library
+# - NEVER store passwords in plain text!
+# - Hashes passwords using bcrypt algorithm
+# - When user registers, we hash their password before storing
+# - When they login, we verify the hash matches
+
+# ============================================
+# Configuration & Environment
+# ============================================
+python-dotenv==1.0.0
+# python-dotenv: Loads environment variables from .env file
+# - Keeps sensitive info (database passwords, API keys) out of code
+# - Reads .env file and makes variables available to your app
+# - Essential for security and different environments (dev/prod)
+
+# ============================================
+# Data Validation & Settings
+# ============================================
+pydantic==2.5.0
+# Pydantic: Data validation using Python type annotations
+# - FastAPI uses this to validate request/response data
+# - Ensures data types are correct (e.g., email is valid, age is a number)
+# - Automatically converts and validates JSON data
+
+pydantic-settings==2.1.0
+# pydantic-settings: Settings management using Pydantic
+# - Extends Pydantic for managing application settings
+# - Used in our config.py to load and validate environment variables
+# - Type-safe configuration management
